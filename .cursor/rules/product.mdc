@@ -1,0 +1,18 @@
+# 产品开发规则
+
+## 代码规范
+- 使用 TypeScript 进行类型安全开发
+- 组件名使用 PascalCase 命名
+- 文件名使用 kebab-case 命名
+- 使用 ESLint 和 Prettier 保持代码一致性
+
+## 最佳实践
+- 每个组件都应该有 PropTypes 或 TypeScript 接口定义
+- 使用 React Hooks 而不是类组件
+- 实现适当的错误边界处理
+- 添加必要的单元测试
+
+## 性能优化
+- 使用 React.memo 优化不必要的重渲染
+- 合理使用 useMemo 和 useCallback
+- 避免在渲染函数中创建对象和函数

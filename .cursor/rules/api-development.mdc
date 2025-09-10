@@ -1,0 +1,59 @@
+# API 开发规范
+
+## 错误处理
+- 所有 API 调用都必须包含错误处理
+- 使用统一的错误处理机制
+- 提供有意义的错误信息给用户
+
+## 数据验证
+- 使用 TypeScript 接口定义 API 响应类型
+- 在运行时验证 API 响应数据
+- 使用 Zod 或类似库进行数据校验
+
+## 示例代码
+```typescript
+// API 服务示例
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
+export interface ApiResponse<T> {
+  data: T;
+  message: string;
+  success: boolean;
+}
+
+export const fetchUser = async (id: string): Promise<User> => {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result: ApiResponse<User> = await response.json();
+    
+    if (!result.success) {
+      throw new Error(result.message);
+    }
+    
+    return result.data;
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw error;
+  }
+};
+```
+
+## 最佳实践
+- 使用 async/await 而不是 Promise.then()
+- 实现请求重试机制
+- 添加适当的加载状态管理
+- 使用缓存策略优化性能
+description:
+globs:
+alwaysApply: false
+---

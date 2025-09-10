@@ -1,0 +1,54 @@
+# 测试开发规范
+
+## 测试原则
+- 遵循 AAA 模式：Arrange（准备）、Act（执行）、Assert（断言）
+- 每个测试应该独立且可重复
+- 测试名称应该清晰描述测试场景
+
+## 测试结构
+```typescript
+describe('UserService', () => {
+  describe('getUserById', () => {
+    it('should return user when valid id is provided', async () => {
+      // Arrange
+      const userId = '123';
+      const expectedUser = { id: '123', name: 'John Doe' };
+      
+      // Act
+      const result = await UserService.getUserById(userId);
+      
+      // Assert
+      expect(result).toEqual(expectedUser);
+    });
+    
+    it('should throw error when user not found', async () => {
+      // Arrange
+      const invalidId = 'invalid';
+      
+      // Act & Assert
+      await expect(UserService.getUserById(invalidId))
+        .rejects.toThrow('User not found');
+    });
+  });
+});
+```
+
+## 测试覆盖率要求
+- 单元测试覆盖率应达到 80% 以上
+- 关键业务逻辑必须有测试覆盖
+- 边界条件和错误情况都要测试
+
+## React 组件测试
+- 使用 React Testing Library
+- 测试用户交互而不是实现细节
+- 使用 screen 查询元素
+- 模拟用户事件进行测试
+
+## Mock 和 Stub
+- 合理使用 mock 隔离依赖
+- 避免过度 mock 导致测试失去意义
+- 清理测试后的 mock 状态
+description:
+globs:
+alwaysApply: false
+---
